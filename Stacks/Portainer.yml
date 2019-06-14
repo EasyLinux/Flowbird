@@ -1,0 +1,16 @@
+version: '3'
+services:
+  Portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /Apps/Data/Local/Portainer:/data
+    ports: 
+      - "9000:9000"
+    labels:
+      - traefik.port=9000
+      - traefik.frontend.rule=Host:portainer.orsys.lan
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager

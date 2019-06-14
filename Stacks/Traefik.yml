@@ -1,0 +1,17 @@
+version: '3'
+services:
+  Traefik:
+    image: traefik
+    command: --web --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports: 
+      - "8080:8080"
+      - "80:80"
+    labels:
+      - traefik.port=8080
+      - traefik.frontend.rule=Host:traefik.orsys.lan
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
